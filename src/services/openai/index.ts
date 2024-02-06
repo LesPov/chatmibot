@@ -8,8 +8,8 @@ const openai = new OpenAI({
 
 
 
-const run = async (name: string, history: ChatCompletionMessageParam[]): Promise<string> => {
-    const prompt = generatePromt(name)
+const run = async (name: string, phoneNumber: string, history: ChatCompletionMessageParam[]): Promise<string> => {
+    const prompt = generatePromt(name, phoneNumber)
     console.log(`[PROMPT]:`, prompt)
 
     const response = await openai.chat.completions.create({
@@ -22,7 +22,7 @@ const run = async (name: string, history: ChatCompletionMessageParam[]): Promise
             ...history
         ],
         temperature: 1,
-        max_tokens: 300,
+        max_tokens:100,
         top_p: 1,
         frequency_penalty: 0,
         presence_penalty: 0,
