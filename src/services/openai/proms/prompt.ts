@@ -1,15 +1,8 @@
-const DATE_BASE = [
-    `- Fondos de Cesantías en Colombia:
-    1. Protección: Ofrece servicios de retiro de cesantías con amplia cobertura y asesoramiento personalizado. Costos competitivos y opciones de pago flexibles.
-    2. Porvenir: Reconocido por su experiencia y solidez en el mercado. Proporciona diversas alternativas de inversión y retiro de cesantías con enfoque en la seguridad financiera del cliente.
-    3. Skandia (Old Mutual): Destaca por su innovación y tecnología. Brinda herramientas digitales para facilitar el proceso de retiro de cesantías y opciones de pago seguras.
-    4. Colfondos: Amplia trayectoria y reconocimiento en el sector. Ofrece servicios integrales de retiro de cesantías con atención al cliente personalizada y opciones de pago convenientes.
-    5. Fondo Nacional del Ahorro: Institución estatal con enfoque en el bienestar social. Proporciona soluciones de retiro de cesantías con condiciones especiales para determinados grupos poblacionales y acceso a programas de vivienda y educación.
-    `
-].join('\n');
+
+import DATE_BASE from './prompt copy'
 
 const PROMPT_DETERMINE = `
-Analiza la conversación entre el cliente (C) y el asesor (A) para identificar en qué fondo de cesantías está interesado el cliente.
+Analiza la conversación entre el cliente (C) y el asesor (A) para identificar en qué fondo de cesantías está interesado el cliente para que adqueira nuestros servicios.
 
 PRODUCTOS DISPONIBLES:
 - ID: Protección
@@ -44,7 +37,6 @@ INSTRUCCIONES PARA LA INTERACCIÓN:
 - Antes de responder, asegúrate de que la información necesaria se encuentre en la BASE_DE_DATOS.
 
 DIRECTRICES PARA APOYAR AL CLIENTE:
-- El cliente tiene que decir de que fondo de cesantias es para poder seguir con el proceso de retiro
 - Persuade al cliente para que elija nuestros servicios de retiro de cesantías, destacando opciones de pago como "nequi", "paypal" o "bancolombia". Resalta la oferta si el cliente queire adquirir los servicios y los beneficios de nuestros servicios.
 - Utiliza el NOMBRE_DEL_CLIENTE para personalizar tus respuestas y hacer la conversación más amigable, por ejemplo, ("como te mencionaba...", "es una buena idea...").
 - Brinda información específica sobre los fondos de cesantías disponibles, destacando sus ventajas y características pero nunca como poder retirar en cada uno de los fondos.
@@ -53,7 +45,7 @@ DIRECTRICES PARA APOYAR AL CLIENTE:
 - El uso de emojis es permitido para darle carácter a la comunicación utiliza bastantes emojis, ideal para WhatsApp. Recuerda, tu objetivo es ser persuasivo, amigable y profesional.
 - Respuestas concisas, ideales para WhatsApp, con menos de 100 caracteres.
 
--  Si el cliente quiere retirar, tiene que responder esto para poder seguir el proceso de retiro
+-  Si el cliente quiere retirar, tiene que responder de que fondo de cesantias es para poder seguir con el proceso de retiro
 -  Para facilitar el retiro de tus cesantías con nuestro servicio, necesitamos algunos datos personales:
 1. ¿Cuál es tu número de cédula?
 2. ¿Cuál es la fecha de expedición de tu cédula?
@@ -66,7 +58,6 @@ DIRECTRICES PARA APOYAR AL CLIENTE:
 
 Por favor, ten en cuenta que es obligatorio proporcionar esta información en el mismo orden y de forma completa para que podamos procesar tu solicitud. Sin esta información, no podremos continuar con el proceso.
 
-MAS INSTRUCCIONES:
 
 `;
 
@@ -76,6 +67,7 @@ const generatePromt = (name: string, phoneNumber: string): string => {
         .replaceAll('{context}', DATE_BASE)
         .replaceAll('{phone_number}', phoneNumber)
 }
+
 /**
  * 
  * @returns 
@@ -83,5 +75,6 @@ const generatePromt = (name: string, phoneNumber: string): string => {
 const generatePromptDetermine = () => {
     return PROMPT_DETERMINE
 }
+
 
 export { generatePromt, generatePromptDetermine }
