@@ -6,8 +6,6 @@ import { run } from 'src/services/openai';
 /**
  * Un flujo conversacion que es por defecto cunado no se contgiene palabras claves en otros flujos
  */
-// ... (otros imports)
-
 export default BotWhatsapp.addKeyword(BotWhatsapp.EVENTS.WELCOME)
 
 .addAction(async (ctx, { flowDynamic, state }) => {
@@ -44,6 +42,7 @@ export default BotWhatsapp.addKeyword(BotWhatsapp.EVENTS.WELCOME)
 
         for (const chunk of chunks) {
             await flowDynamic(chunk);
+            await delay(5000); // Pausa de 3 segundos entre cada mensaje
         }
 
         newHistory.push({
@@ -58,3 +57,7 @@ export default BotWhatsapp.addKeyword(BotWhatsapp.EVENTS.WELCOME)
     }
 });
 
+// Función para pausar el proceso durante un número específico de milisegundos
+async function delay(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}

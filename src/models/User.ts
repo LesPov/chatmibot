@@ -1,14 +1,10 @@
-// models/User.ts
 import { DataTypes, Model } from 'sequelize';
 import sequelize from '../database/sequelize'; // Importa la instancia de Sequelize
 
 class User extends Model {
-    additionalData(arg0: string, additionalData: any) {
-        throw new Error("Method not implemented.");
-    }
-    public id!: number;
-    public name!: string;
-    public phoneNumber!: string;
+    declare  id: number;
+    declare  name: string;
+    declare  phoneNumber: string;
 
     // Constructor para evitar la advertencia de campos públicos de clase
     constructor(values?: Record<string, unknown>, options?: Record<string, unknown>) {
