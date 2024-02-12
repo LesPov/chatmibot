@@ -1,10 +1,12 @@
+// Importar otros módulos y definir funciones necesarias
 import BotWhatsapp from '@bot-whatsapp/bot';
 import { ChatCompletionMessageParam } from 'openai/resources';
+import GoogleSheetsController from 'src/controllers/GoogleSheetsController';
 import User from 'src/models/User';
 import { run } from 'src/services/openai';
 
 /**
- * Un flujo conversacion que es por defecto cunado no se contgiene palabras claves en otros flujos
+ * Un flujo de conversación que se ejecuta por defecto cuando no se contiene ninguna palabra clave en otros flujos
  */
 export default BotWhatsapp.addKeyword(BotWhatsapp.EVENTS.WELCOME)
 
@@ -31,10 +33,16 @@ export default BotWhatsapp.addKeyword(BotWhatsapp.EVENTS.WELCOME)
 
         if (!existingUser) {
             // Si el usuario no está registrado, agregarlo a la base de datos
-            await User.create({
+            const newUser = await User.create({
                 name,
                 phoneNumber,
             });
+        
+            // Ahora puedes usar el ID del nuevo usuario
+            await GoogleSheetsController(newUser.id, name, phoneNumber);
+        } else {
+            // El usuario ya existe, puedes utilizar su ID
+            await GoogleSheetsController(existingUser.id, name, phoneNumber);
         }
 
         const largeResponse = await run(name, phoneNumber, newHistory);
@@ -42,7 +50,7 @@ export default BotWhatsapp.addKeyword(BotWhatsapp.EVENTS.WELCOME)
 
         for (const chunk of chunks) {
             await flowDynamic(chunk);
-            await delay(5000); // Pausa de 3 segundos entre cada mensaje
+            await delay(5000); // Pausa de 5 segundos entre cada mensaje
         }
 
         newHistory.push({
@@ -58,6 +66,6 @@ export default BotWhatsapp.addKeyword(BotWhatsapp.EVENTS.WELCOME)
 });
 
 // Función para pausar el proceso durante un número específico de milisegundos
-async function delay(ms: number) {
+async function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
