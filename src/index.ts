@@ -13,7 +13,6 @@ const main = async () => {
   try {
     // Sincroniza el modelo User con la base de datos
     await User.sync();
-
     // Crea el bot con la configuración
     await BotWhatsapp.createBot({
       database,
