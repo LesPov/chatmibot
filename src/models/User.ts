@@ -5,6 +5,7 @@ class User extends Model {
     declare  id: number;
     declare  name: string;
     declare  phoneNumber: string;
+    declare fondoCesantias: string; // Nuevo campo
 
     // Constructor para evitar la advertencia de campos públicos de clase
     constructor(values?: Record<string, unknown>, options?: Record<string, unknown>) {
@@ -27,6 +28,10 @@ User.init(
             type: DataTypes.STRING,
             allowNull: false,
             unique: true,
+        },
+        fondoCesantias: { // Definición del nuevo campo
+            type: DataTypes.STRING,
+            allowNull: true, // Dependiendo de si el cliente proporciona esta información
         },
     },
     {

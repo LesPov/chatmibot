@@ -1,6 +1,11 @@
 declare module "@bot-whatsapp/bot" {
     // Definiciones de tipos para el contexto del bot
     type BotContext = {
+      sendMessage(arg0: string): unknown;
+      // Cadena de métodos para la construcción de acciones
+      reply // Cadena de métodos para la construcción de acciones
+          (arg0: string): unknown;
+      send(arg0: string): unknown;
       SmsMessageSid: string;
       NumMedia: string;
       ProfileName: string;
