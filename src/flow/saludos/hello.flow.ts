@@ -1,4 +1,5 @@
-import BotWhatsapp from '@bot-whatsapp/bot'
+import BotWhatsapp from '@bot-whatsapp/bot';
+import { generatePromptDetermine } from 'src/services/openai/proms/prompt';
 
 /**
  * Un flujo conversacion que responder a las palabras claves "hola", "buenas", ...
